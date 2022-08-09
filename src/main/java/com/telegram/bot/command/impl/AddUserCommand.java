@@ -20,9 +20,9 @@ public class AddUserCommand implements Command {
     @Override
     public void execute(Update update) {
         Message message = update.getMessage();
-        UsersChatIdStorage.addUserChatId(message.getChatId());
+        UsersChatIdStorage.addUser(message.getChatId());
         SendMessage sendMessage = new SendMessage();
-        sendMessage.setText("AddUserCommand should be implemented");
+        sendMessage.setText("Ви ввімкнули сповіщення! За замовчуванням вам приходитиме одне повідомлення.");
         sendMessage.setChatId(message.getChatId());
         messageSender.sendMessage(sendMessage);
     }

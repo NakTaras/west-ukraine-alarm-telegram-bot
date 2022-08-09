@@ -5,7 +5,7 @@ import com.telegram.bot.messagesender.MessageSender;
 import com.telegram.bot.storage.UsersChatIdStorage;
 import org.springframework.stereotype.Component;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
-import org.telegram.telegrambots.meta.api.objects.Message;
+import org.telegram.telegrambots.meta.api.objects.CallbackQuery;
 import org.telegram.telegrambots.meta.api.objects.Update;
 
 @Component
@@ -19,11 +19,15 @@ public class SetAmountCommand implements Command {
 
     @Override
     public void execute(Update update) {
-        Message message = update.getMessage();
-        UsersChatIdStorage.addUserChatId(message.getChatId());
+        CallbackQuery callbackQuery = update.getCallbackQuery();
+        Integer amountOfMessages = Integer.parseInt(callbackQuery.getData().replaceAll("[\\D]", ""));
+        Long currentId = callbackQuery.getFrom().getId();
+
+        UsersChatIdStorage.addUserWithAmountOfMessages(currentId, amountOfMessages);
+
         SendMessage sendMessage = new SendMessage();
-        sendMessage.setText("SetAmountCommand should be implemented");
-        sendMessage.setChatId(message.getChatId());
+        sendMessage.setText("Ви змінили кількість повідомлень при сповіщенні тривоги та ввімкнули сповіщення! Тепер кількість повідомлень: " + amountOfMessages);
+        sendMessage.setChatId(currentId);
         messageSender.sendMessage(sendMessage);
     }
 }

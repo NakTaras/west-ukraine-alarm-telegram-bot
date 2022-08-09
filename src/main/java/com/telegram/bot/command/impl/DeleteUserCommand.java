@@ -20,9 +20,9 @@ public class DeleteUserCommand implements Command {
     @Override
     public void execute(Update update) {
         Message message = update.getMessage();
-        UsersChatIdStorage.addUserChatId(message.getChatId());
+        UsersChatIdStorage.removeUser(message.getChatId());
         SendMessage sendMessage = new SendMessage();
-        sendMessage.setText("DeleteUserCommand should be implemented");
+        sendMessage.setText("Ви вимкнули сповіщення!");
         sendMessage.setChatId(message.getChatId());
         messageSender.sendMessage(sendMessage);
     }

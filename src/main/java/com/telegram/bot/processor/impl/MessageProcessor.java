@@ -32,7 +32,7 @@ public class MessageProcessor implements Processor {
 
             if (messageText.equals("start")) {
                 // TODO: 08.08.2022 add logic for input amount of message that bot should send
-                UsersChatIdStorage.addUserChatId(message.getChatId());
+                UsersChatIdStorage.addUser(message.getChatId());
                 SendMessage sendMessage = new SendMessage();
                 sendMessage.setText("Your ID was added");
                 sendMessage.setChatId(currentChatID);
@@ -40,7 +40,7 @@ public class MessageProcessor implements Processor {
             }
 
             Command command = commandContainer.getCommand(messageText);
-            if (null != command) {
+            if (null != command && '/' == messageText.charAt(0)) {
                 command.execute(update);
             } else {
                 SendMessage sendMessage = new SendMessage();

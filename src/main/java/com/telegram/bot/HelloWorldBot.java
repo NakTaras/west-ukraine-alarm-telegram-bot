@@ -1,5 +1,6 @@
 package com.telegram.bot;
 
+import com.telegram.bot.processor.impl.CallBackQueryProcessor;
 import com.telegram.bot.processor.impl.ChannelPostProcessor;
 import com.telegram.bot.processor.impl.MessageProcessor;
 import org.springframework.beans.factory.annotation.Value;
@@ -12,15 +13,17 @@ public class HelloWorldBot extends TelegramLongPollingBot {
 
     private final MessageProcessor messageProcessor;
     private final ChannelPostProcessor channelPostProcessor;
+    private final CallBackQueryProcessor callBackQueryProcessor;
 
     @Value("${telegram.bot.username}")
     private String userName;
     @Value("${telegram.bot.token}")
     private String token;
 
-    public HelloWorldBot(MessageProcessor messageProcessor, ChannelPostProcessor channelPostProcessor) {
+    public HelloWorldBot(MessageProcessor messageProcessor, ChannelPostProcessor channelPostProcessor, CallBackQueryProcessor callBackQueryProcessor) {
         this.messageProcessor = messageProcessor;
         this.channelPostProcessor = channelPostProcessor;
+        this.callBackQueryProcessor = callBackQueryProcessor;
     }
 
     @Override
@@ -43,6 +46,9 @@ public class HelloWorldBot extends TelegramLongPollingBot {
         }
         if (update.hasChannelPost()) {
             channelPostProcessor.process(update);
+        }
+        if (update.hasCallbackQuery()) {
+            callBackQueryProcessor.process(update);
         }
     }
 }

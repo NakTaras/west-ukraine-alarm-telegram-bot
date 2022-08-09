@@ -16,8 +16,7 @@ public class MessageSenderImpl implements MessageSender {
         this.telegramBot = telegramBot;
     }
 
-    @Override
-    public void sendMessage(SendMessage sendMessage) {
+    @Override    public void sendMessage(SendMessage sendMessage) {
         try {
             telegramBot.execute(sendMessage);
         } catch (TelegramApiException e) {

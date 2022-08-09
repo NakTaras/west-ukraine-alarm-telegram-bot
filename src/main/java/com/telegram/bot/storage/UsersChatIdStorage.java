@@ -1,21 +1,28 @@
 package com.telegram.bot.storage;
 
-import java.util.HashSet;
-import java.util.Set;
+import java.util.HashMap;
+import java.util.Map;
 
 public class UsersChatIdStorage {
 
-    private static final Set<Long> usersChatId = new HashSet<>();
+    private static final Map<Long, Integer> usersChatId = new HashMap<>();
 
     private UsersChatIdStorage() {
     }
 
-    public static Set<Long> getUsersChatId() {
+    public static Map<Long, Integer> getUsersChatId() {
         return usersChatId;
     }
 
-    public static void addUserChatId(Long chatId) {
-        // TODO: 08.08.2022 check how to implement this method
-        usersChatId.add(chatId);
+    public static void addUser(Long chatId) {
+        usersChatId.put(chatId, 1);
+    }
+
+    public static void addUserWithAmountOfMessages(Long chatId, Integer amountOfMessages) {
+        usersChatId.put(chatId, amountOfMessages);
+    }
+
+    public static void removeUser(Long chatId) {
+        usersChatId.remove(chatId);
     }
 }

@@ -26,7 +26,8 @@ public class CommandContainer {
             commands.put("/turnon", new AddUserCommand(messageSender));
             commands.put("/turnoff", new DeleteUserCommand(messageSender));
             commands.put("/amount", new AskToSetAmountCommand(messageSender));
-            commands.put("", new SetAmountCommand(messageSender));
+            commands.put("setamount", new SetAmountCommand(messageSender));
+            commands.put("", new AlarmNotificationCommand(messageSender));
         }
         return commands.get(commandName);
     }
