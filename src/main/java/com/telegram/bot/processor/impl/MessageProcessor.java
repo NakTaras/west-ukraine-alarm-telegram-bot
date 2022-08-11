@@ -5,7 +5,6 @@ import com.telegram.bot.command.CommandContainer;
 import com.telegram.bot.message.MessagesText;
 import com.telegram.bot.messagesender.MessageSender;
 import com.telegram.bot.processor.Processor;
-import com.telegram.bot.storage.UsersChatIdStorage;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
@@ -28,11 +27,7 @@ public class MessageProcessor implements Processor {
             String messageText = message.getText();
             Long currentChatID = message.getChatId();
 
-            System.out.println("Log: message = " + messageText);
-
             if (messageText.equals("start")) {
-                // TODO: 08.08.2022 add logic for input amount of message that bot should send
-                UsersChatIdStorage.addUser(message.getChatId());
                 SendMessage sendMessage = new SendMessage();
                 sendMessage.setText("Your ID was added");
                 sendMessage.setChatId(currentChatID);
