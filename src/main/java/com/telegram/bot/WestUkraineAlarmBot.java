@@ -9,7 +9,7 @@ import org.telegram.telegrambots.bots.TelegramLongPollingBot;
 import org.telegram.telegrambots.meta.api.objects.Update;
 
 @Component
-public class HelloWorldBot extends TelegramLongPollingBot {
+public class WestUkraineAlarmBot extends TelegramLongPollingBot {
 
     private final MessageProcessor messageProcessor;
     private final ChannelPostProcessor channelPostProcessor;
@@ -20,7 +20,7 @@ public class HelloWorldBot extends TelegramLongPollingBot {
     @Value("${telegram.bot.token}")
     private String token;
 
-    public HelloWorldBot(MessageProcessor messageProcessor, ChannelPostProcessor channelPostProcessor, CallBackQueryProcessor callBackQueryProcessor) {
+    public WestUkraineAlarmBot(MessageProcessor messageProcessor, ChannelPostProcessor channelPostProcessor, CallBackQueryProcessor callBackQueryProcessor) {
         this.messageProcessor = messageProcessor;
         this.channelPostProcessor = channelPostProcessor;
         this.callBackQueryProcessor = callBackQueryProcessor;
@@ -35,9 +35,6 @@ public class HelloWorldBot extends TelegramLongPollingBot {
     public String getBotToken() {
         return token;
     }
-
-    // TODO: 08.08.2022 implement logic to filter alarm for different regions 
-    // TODO: 08.08.2022 try to replace implementation with command pattern 
     
     @Override
     public void onUpdateReceived(Update update) {
